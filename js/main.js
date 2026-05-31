@@ -69,6 +69,7 @@
   /* ---------- Reveal on scroll + counter trigger ---------- */
   const revealEls = $$(
     ".value-card, .service-card, .process-step, .work-card, .why-card, " +
+      ".member-card, .review-card, .faq-item, " +
       ".timeline, .section__head, .contact__form, .contact__info"
   );
   revealEls.forEach((el) => el.classList.add("reveal"));
