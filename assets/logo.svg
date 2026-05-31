@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="CU Soft 로고">
+  <defs>
+    <linearGradient id="cuGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1d4ed8"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#cuGrad)"/>
+  <path d="M31 17.5a9.5 9.5 0 1 0 0 13" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/>
+  <circle cx="33.5" cy="24" r="2.6" fill="#fff"/>
+</svg>
