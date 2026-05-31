@@ -143,3 +143,124 @@
 /* ---------- Section divider: subtle pixel row between sections ---------- */
 .is-b .section + .section::before,
 .is-b .section--alt::before { }
+
+/* =========================================================
+   B안 강화 (Enhanced) — 픽셀 모티프 전면 확장
+   ========================================================= */
+
+/* ---------- Hero: 2-column + pixel-frame mockup ---------- */
+.is-b .hero { padding-bottom: 78px; }
+@media (min-width: 980px) and (max-width: 1180px) {
+  .is-b .hero__title { font-size: 2.7rem; }
+}
+.is-b .hero__inner::after { display: none; } /* 큰 코너 브래킷 → 목업으로 대체 */
+.is-b .hero__main { display: grid; gap: 44px; align-items: center; }
+@media (min-width: 980px) {
+  .is-b .hero__main { grid-template-columns: 1.05fr .95fr; }
+}
+@media (max-width: 979px) {
+  .is-b .hero__visual { max-width: 460px; width: 100%; margin-inline: auto; }
+}
+
+.is-b .hero__visual { position: relative; }
+.is-b .mock {
+  position: relative; background: #0b1220; border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .08); box-shadow: var(--shadow-lg);
+}
+.is-b .mock::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.is-b .mock__bar { position: relative; z-index: 1; display: flex; gap: 7px; padding: 14px 16px; background: rgba(255, 255, 255, .04); }
+.is-b .mock__bar span { width: 11px; height: 11px; border-radius: 50%; background: #3b4763; }
+.is-b .mock__bar span:nth-child(1) { background: var(--c-green); }
+.is-b .mock__bar span:nth-child(2) { background: #e0b341; }
+.is-b .mock__bar span:nth-child(3) { background: var(--c-blue); }
+.is-b .mock__body { position: relative; z-index: 1; padding: 22px; display: grid; gap: 18px; }
+.is-b .mock__row { display: flex; align-items: center; gap: 14px; }
+.is-b .mock__tile { width: 46px; height: 46px; flex: none; border-radius: 10px; background: var(--grad-brand); }
+.is-b .mock__lines { flex: 1; display: grid; gap: 8px; }
+.is-b .mock__lines i { display: block; height: 9px; border-radius: 4px; background: rgba(255, 255, 255, .14); }
+.is-b .mock__lines i:nth-child(1) { width: 70%; }
+.is-b .mock__lines i:nth-child(2) { width: 92%; }
+.is-b .mock__lines i:nth-child(3) { width: 54%; }
+.is-b .mock__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.is-b .mock__grid div { aspect-ratio: 1 / 1; border-radius: 8px; background: rgba(255, 255, 255, .06); }
+.is-b .mock__grid div:nth-child(1) { background: rgba(35, 168, 57, .85); }
+.is-b .mock__grid div:nth-child(5) { background: rgba(30, 83, 163, .9); }
+.is-b .mock__grid div:nth-child(9) { background: rgba(35, 168, 57, .55); }
+.is-b .mock__bars { display: flex; align-items: flex-end; gap: 10px; height: 92px; }
+.is-b .mock__bars b { flex: 1; height: var(--h); border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--c-blue), rgba(35, 168, 57, .7)); }
+.is-b .mock__badge {
+  position: absolute; top: -14px; left: -14px; width: 50px; height: 50px; z-index: 2;
+  border-radius: 13px; background: var(--grad-brand); color: #fff; font-weight: 900;
+  display: grid; place-items: center; box-shadow: var(--shadow-md);
+}
+
+/* ---------- Section title: pixel accent row ---------- */
+.is-b .section__head::after {
+  content: ""; display: block; width: 56px; height: 8px; margin: 18px auto 0;
+  background:
+    linear-gradient(var(--c-green), var(--c-green)) 0 0 / 8px 8px no-repeat,
+    linear-gradient(var(--c-blue), var(--c-blue)) 16px 0 / 8px 8px no-repeat,
+    linear-gradient(var(--c-green), var(--c-green)) 32px 0 / 8px 8px no-repeat,
+    linear-gradient(var(--c-blue), var(--c-blue)) 48px 0 / 8px 8px no-repeat;
+}
+
+/* ---------- Timeline: square pixel markers ---------- */
+.is-b .timeline__list li:nth-child(odd)::before { background: var(--c-green); box-shadow: 0 0 0 4px rgba(35, 168, 57, .15); }
+.is-b .timeline__list li:nth-child(even)::before { background: var(--c-blue); box-shadow: 0 0 0 4px rgba(30, 83, 163, .15); }
+.is-b .timeline__list li::before { border-radius: 2px; }
+.is-b .timeline__year { color: var(--c-blue); }
+
+/* ---------- Cards: pixel corner accent on hover ---------- */
+.is-b .service-card, .is-b .work-card { position: relative; }
+.is-b .service-card::after {
+  content: ""; position: absolute; top: 14px; right: 14px; width: 14px; height: 14px; opacity: 0;
+  background:
+    linear-gradient(var(--c-green), var(--c-green)) 0 0 / 6px 6px no-repeat,
+    linear-gradient(var(--c-blue), var(--c-blue)) 8px 8px / 6px 6px no-repeat;
+  transition: opacity .2s ease;
+}
+.is-b .service-card:hover::after { opacity: 1; }
+
+/* ---------- CTA band: pixel grid + corner brackets ---------- */
+.is-b .cta-band { position: relative; overflow: hidden; }
+.is-b .cta-band::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(80% 120% at 85% 0%, #000, transparent 70%);
+  mask-image: radial-gradient(80% 120% at 85% 0%, #000, transparent 70%);
+}
+.is-b .cta-band__inner { position: relative; z-index: 1; }
+.is-b .cta-band::after {
+  content: ""; position: absolute; left: 26px; bottom: 22px; width: 70px; height: 70px; z-index: 1; opacity: .55;
+  background:
+    linear-gradient(#fff, #fff) 0 0 / 28px 9px no-repeat,
+    linear-gradient(#fff, #fff) 0 0 / 9px 28px no-repeat,
+    linear-gradient(#fff, #fff) right bottom / 28px 9px no-repeat,
+    linear-gradient(#fff, #fff) right bottom / 9px 28px no-repeat;
+}
+@media (max-width: 700px) { .is-b .cta-band::after { display: none; } }
+
+/* ---------- Footer: brand pixel top border + faint grid ---------- */
+.is-b .site-footer {
+  position: relative;
+  background-color: var(--c-bg-dark);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.is-b .site-footer::before {
+  content: ""; display: block; height: 8px;
+  background: repeating-linear-gradient(90deg,
+    var(--c-green) 0 8px, transparent 8px 16px,
+    var(--c-blue) 16px 24px, transparent 24px 32px);
+}
