@@ -264,3 +264,89 @@
     var(--c-green) 0 8px, transparent 8px 16px,
     var(--c-blue) 16px 24px, transparent 24px 32px);
 }
+
+/* =========================================================
+   B안 다듬기 (Polish) — 약한 섹션 보강
+   ========================================================= */
+
+/* ---------- Partners: 픽셀 구분점 + 카드형 띠 ---------- */
+.is-b .partners {
+  background:
+    linear-gradient(180deg, #fafcff, #ffffff);
+}
+.is-b .partners__label { color: var(--c-blue); font-weight: 700; letter-spacing: .02em; }
+.is-b .partners__list { gap: 14px 0; align-items: center; }
+.is-b .partners__list li {
+  position: relative; padding: 6px 30px; color: #94a3b8;
+}
+.is-b .partners__list li + li::before {
+  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 6px; border-radius: 1px; background: var(--c-green); opacity: .6;
+}
+.is-b .partners__list li:hover { color: var(--c-blue); }
+@media (max-width: 600px) {
+  .is-b .partners__list li + li::before { display: none; }
+}
+
+/* ---------- Process: 단계 연결선 + 번호 배지 ---------- */
+.is-b .process__list { position: relative; }
+@media (min-width: 1000px) {
+  .is-b .process__list::before {
+    content: ""; position: absolute; top: 52px; left: 12.5%; right: 12.5%; height: 2px; z-index: 0;
+    background: repeating-linear-gradient(90deg,
+      var(--c-blue) 0 8px, transparent 8px 16px);
+    opacity: .35;
+  }
+}
+.is-b .process-step { position: relative; z-index: 1; background: var(--c-bg); }
+.section--alt .is-b .process-step,
+.is-b .section--alt .process-step { background: var(--c-bg); }
+.is-b .process-step__num {
+  display: inline-grid; place-items: center; width: 54px; height: 54px; margin-bottom: 16px;
+  font-size: 1.4rem; border-radius: 14px; color: #fff !important;
+  -webkit-text-fill-color: #fff; background: var(--grad-brand);
+  box-shadow: 0 8px 20px rgba(30, 83, 163, .25);
+}
+
+/* ---------- Portfolio: 카드 본문 + 호버 'VIEW' ---------- */
+.is-b .work-card__tag {
+  background: linear-gradient(135deg, #eef4ff, #e9fbef); color: var(--c-blue);
+  border: 1px solid #e2e8f0;
+}
+.is-b .work-card__thumb { overflow: hidden; }
+.is-b .work-card__thumb .work-view {
+  position: absolute; inset: 0; z-index: 3; display: grid; place-items: center;
+  opacity: 0; transition: opacity .25s ease;
+}
+.is-b .work-card:hover .work-card__thumb .work-view { opacity: 1; }
+.is-b .work-view span {
+  font-weight: 800; font-size: .82rem; letter-spacing: .15em; color: #fff;
+  padding: 9px 18px; border: 1.5px solid rgba(255,255,255,.9); border-radius: 999px;
+  backdrop-filter: blur(2px);
+}
+
+/* ---------- Scroll reveal: 계단식 지연(stagger) ---------- */
+.is-b .services__grid > .reveal:nth-child(3n+2),
+.is-b .portfolio__grid > .reveal:nth-child(3n+2),
+.is-b .about__grid > .reveal:nth-child(3n+2),
+.is-b .why__grid > .reveal:nth-child(4n+2),
+.is-b .team__grid > .reveal:nth-child(4n+2),
+.is-b .process__list > .reveal:nth-child(4n+2) { transition-delay: .08s; }
+.is-b .services__grid > .reveal:nth-child(3n+3),
+.is-b .portfolio__grid > .reveal:nth-child(3n+3),
+.is-b .about__grid > .reveal:nth-child(3n+3),
+.is-b .why__grid > .reveal:nth-child(4n+3),
+.is-b .team__grid > .reveal:nth-child(4n+3),
+.is-b .process__list > .reveal:nth-child(4n+3) { transition-delay: .16s; }
+.is-b .why__grid > .reveal:nth-child(4n+4),
+.is-b .team__grid > .reveal:nth-child(4n+4),
+.is-b .process__list > .reveal:nth-child(4n+4) { transition-delay: .24s; }
+
+/* ---------- 카드 호버 보더에 브랜드 그린 힌트 ---------- */
+.is-b .value-card:hover,
+.is-b .member-card:hover,
+.is-b .review-card:hover { border-color: #bfe6c7; }
+
+/* ---------- 버튼: 그린 그라데이션 강조 옵션 ---------- */
+.is-b .btn--primary.btn--lg { background: var(--grad-brand); }
+.is-b .btn--primary.btn--lg:hover { filter: brightness(.95); background: var(--grad-brand); }
