@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 다크모드 초기화 (FOUC 방지: 스타일 로드 전에 테마 확정) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("cusoft-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
   <title>씨유소프트 | CU Soft — 비즈니스를 성장시키는 소프트웨어 파트너</title>
   <meta name="description" content="씨유소프트(CU Soft)는 웹·앱 개발, 클라우드, SI/SM, 맞춤형 솔루션을 제공하는 소프트웨어 전문 기업입니다. 기획부터 운영까지 함께합니다." />
   <meta name="theme-color" content="#1e53a3" />
@@ -62,7 +72,8 @@
   <header class="site-header" id="site-header">
     <div class="container header__inner">
       <a class="logo" href="#home" aria-label="씨유소프트 홈">
-        <img class="logo__img" src="assets/logo-dark.png" alt="씨유소프트 CU Soft" width="262" height="60" />
+        <img class="logo__img logo__img--dark" src="assets/logo-dark.png" alt="씨유소프트 CU Soft" width="262" height="60" />
+        <img class="logo__img logo__img--light" src="assets/logo-white.png" alt="씨유소프트 CU Soft" width="262" height="60" />
       </a>
 
       <nav class="nav" id="primary-nav" aria-label="주요 메뉴">
@@ -76,9 +87,16 @@
         <a href="#contact" class="btn btn--primary nav__cta">프로젝트 문의</a>
       </nav>
 
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header__actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="다크 모드 전환" title="다크 모드 전환">
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+          <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -561,6 +579,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- 플로팅 연락 버튼 -->
+  <div class="float-actions" aria-label="빠른 연락">
+    <a class="fab fab--tel" href="tel:+82-54-911-0900" aria-label="전화 문의 054-911-0900">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.8.4 1.6.7 2.3a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.7-1.3a2 2 0 0 1 2.1-.4c.7.3 1.5.6 2.3.7a2 2 0 0 1 1.7 2z"/></svg>
+      <span class="fab__label">전화 문의</span>
+    </a>
+    <a class="fab fab--mail" href="mailto:contact@cusoft.co.kr" aria-label="이메일 문의">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+      <span class="fab__label">이메일 문의</span>
+    </a>
+  </div>
 
   <a href="#home" class="to-top" id="to-top" aria-label="맨 위로 이동">↑</a>
 

@@ -793,3 +793,102 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-weight: 700; color: var(--c-blue, #1e53a3);
 }
 .contact__directions:hover { text-decoration: underline; }
+
+/* =========================================================
+   다크 모드 · 테마 토글 · 플로팅 연락 버튼
+   ========================================================= */
+
+/* ---------- 로고 전환 (라이트=어두운 로고 / 다크=흰 로고) ---------- */
+.logo { gap: 0; }
+.logo__img--light { display: none; }
+[data-theme="dark"] .site-header .logo__img--dark { display: none; }
+[data-theme="dark"] .site-header .logo__img--light { display: block; }
+
+/* ---------- 헤더 우측 액션 영역 ---------- */
+.header__actions { display: flex; align-items: center; gap: 6px; }
+
+/* ---------- 테마 토글 버튼 ---------- */
+.theme-toggle {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: inline-grid; place-items: center; color: var(--c-body);
+  border: 1.5px solid var(--c-line); background: var(--c-bg);
+  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .15s ease;
+}
+.theme-toggle:hover { color: var(--c-primary); border-color: var(--c-primary); transform: translateY(-1px); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle__moon { display: none; }
+[data-theme="dark"] .theme-toggle__sun { display: none; }
+[data-theme="dark"] .theme-toggle__moon { display: block; }
+
+/* ---------- 플로팅 연락 버튼 ---------- */
+.float-actions {
+  position: fixed; right: 20px; bottom: 84px; z-index: 90;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.fab {
+  position: relative; width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff;
+  box-shadow: var(--shadow-md); transition: transform .18s ease, box-shadow .2s ease, filter .2s ease;
+}
+.fab svg { width: 24px; height: 24px; }
+.fab:hover { transform: translateY(-3px) scale(1.04); box-shadow: var(--shadow-lg); }
+.fab--tel { background: linear-gradient(135deg, #1e53a3, #2563eb); }
+.fab--mail { background: linear-gradient(135deg, #23a839, #16a34a); }
+.fab__label {
+  position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%);
+  white-space: nowrap; background: var(--c-ink); color: #fff;
+  padding: 7px 12px; border-radius: 8px; font-size: .82rem; font-weight: 700;
+  opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease;
+}
+.fab__label::after {
+  content: ""; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+  border: 6px solid transparent; border-left-color: var(--c-ink);
+}
+.fab:hover .fab__label, .fab:focus-visible .fab__label { opacity: 1; transform: translateY(-50%) translateX(-2px); }
+
+@media (max-width: 600px) {
+  .float-actions { right: 14px; bottom: 78px; gap: 10px; }
+  .fab { width: 48px; height: 48px; }
+  .fab svg { width: 22px; height: 22px; }
+}
+
+/* =========================================================
+   다크 테마 토큰 오버라이드
+   ========================================================= */
+[data-theme="dark"] {
+  --c-ink: #f1f5f9;
+  --c-body: #cbd5e1;
+  --c-muted: #94a3b8;
+  --c-line: #1f2b40;
+  --c-bg: #0b1220;
+  --c-bg-alt: #111c30;
+  --c-primary: #3b82f6;
+  --c-primary-dark: #2563eb;
+  --c-primary-light: #60a5fa;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, .55);
+
+  color-scheme: dark;
+}
+
+/* 하드코딩 색상 다크 보정 */
+[data-theme="dark"] body { background: var(--c-bg); }
+[data-theme="dark"] .site-header { background: rgba(11, 18, 32, .82); }
+[data-theme="dark"] .hero__bg {
+  background:
+    radial-gradient(70% 60% at 80% 0%, rgba(37, 99, 235, .22), transparent 60%),
+    radial-gradient(70% 70% at 10% 10%, rgba(35, 168, 57, .14), transparent 55%),
+    linear-gradient(180deg, #0c1424 0%, #0b1220 70%);
+}
+[data-theme="dark"] .value-card__icon {
+  background: linear-gradient(135deg, #15294a, #123524);
+}
+[data-theme="dark"] .field input:focus,
+[data-theme="dark"] .field textarea:focus { background: var(--c-bg-alt); }
+[data-theme="dark"] .partners__list { color: #475569; }
+
+@media (max-width: 860px) {
+  [data-theme="dark"] .nav { background: var(--c-bg); }
+}

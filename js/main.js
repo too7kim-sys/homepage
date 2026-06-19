@@ -13,6 +13,41 @@
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Theme (dark mode) toggle ---------- */
+  const themeToggle = $("#theme-toggle");
+  const THEME_KEY = "cusoft-theme";
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    if (metaTheme) metaTheme.setAttribute("content", theme === "dark" ? "#0b1220" : "#1e53a3");
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "라이트 모드 전환" : "다크 모드 전환");
+      themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+    }
+  }
+
+  // 초기 테마는 <head> 인라인 스크립트가 이미 설정 → 메타/라벨만 동기화
+  applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const next =
+        document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    });
+  }
+
+  // OS 테마 변경 시(사용자가 직접 고르지 않은 경우에만) 따라가기
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+      let saved = null;
+      try { saved = localStorage.getItem(THEME_KEY); } catch (_) {}
+      if (!saved) applyTheme(e.matches ? "dark" : "light");
+    });
+  }
+
   /* ---------- Mobile navigation ---------- */
   const navToggle = $("#nav-toggle");
   const nav = $("#primary-nav");
