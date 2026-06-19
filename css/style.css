@@ -130,8 +130,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
   margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--c-line);
 }
-.hero__stats strong { display: block; font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--c-ink); font-weight: 900; letter-spacing: -.02em; }
-.hero__stats span { color: var(--c-muted); font-size: .92rem; }
+.hero__stats strong { display: block; font-size: clamp(1.1rem, 3vw, 1.35rem); color: var(--c-ink); font-weight: 900; letter-spacing: -.02em; }
+.hero__stats span { color: var(--c-muted); font-size: .9rem; }
 
 /* ---------- Partners ---------- */
 .partners { padding: 36px 0; border-bottom: 1px solid var(--c-line); background: var(--c-bg); }
