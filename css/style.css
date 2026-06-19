@@ -781,3 +781,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ---------- 버튼: 그린 그라데이션 강조 옵션 ---------- */
 .btn--primary.btn--lg { background: var(--grad-brand); }
 .btn--primary.btn--lg:hover { filter: brightness(.95); background: var(--grad-brand); }
+
+/* ---------- Contact map ---------- */
+.contact__map { margin-top: 28px; }
+.contact__map iframe {
+  display: block; width: 100%; border-radius: var(--radius);
+  border: 1px solid var(--c-line); box-shadow: var(--shadow-sm);
+}
+.contact__directions {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-weight: 700; color: var(--c-blue, #1e53a3);
+}
+.contact__directions:hover { text-decoration: underline; }

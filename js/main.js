@@ -161,7 +161,25 @@
       f.addEventListener("input", () => setError(f, ""))
     );
 
-    form.addEventListener("submit", (e) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const CONTACT_EMAIL = "contact@cusoft.co.kr";
+    // Formspree 엔드포인트가 설정되면 실제 전송, 아니면 mailto 폴백.
+    const action = form.getAttribute("action") || "";
+    const useFormspree = /formspree\.io\/f\/(?!your_form_id)/.test(action);
+
+    function mailtoFallback(name, email, company, message) {
+      const subject = encodeURIComponent("[홈페이지 문의] " + name);
+      const body = encodeURIComponent(
+        "이름: " + name + "\n" +
+          "이메일: " + email + "\n" +
+          "회사/소속: " + company + "\n\n" +
+          message
+      );
+      window.location.href =
+        "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
+    }
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       let firstInvalid = null;
 
@@ -190,27 +208,50 @@
         return;
       }
 
-      // No backend: compose a mailto draft as a graceful fallback.
       const name = fields.name.value.trim();
       const email = fields.email.value.trim();
       const company = ($("#company") && $("#company").value.trim()) || "-";
       const message = fields.message.value.trim();
 
-      const subject = encodeURIComponent("[홈페이지 문의] " + name);
-      const body = encodeURIComponent(
-        "이름: " + name + "\n" +
-          "이메일: " + email + "\n" +
-          "회사/소속: " + company + "\n\n" +
-          message
-      );
-
-      if (note) {
-        note.textContent = "문의가 접수되었습니다. 메일 앱이 열리면 전송을 완료해 주세요.";
-        note.className = "form__note is-success";
+      // Formspree 미설정 시: 메일 앱으로 폴백.
+      if (!useFormspree) {
+        if (note) {
+          note.textContent = "메일 앱이 열리면 전송을 완료해 주세요.";
+          note.className = "form__note is-success";
+        }
+        mailtoFallback(name, email, company, message);
+        return;
       }
-      form.reset();
-      window.location.href =
-        "mailto:contact@cusoft.co.kr?subject=" + subject + "&body=" + body;
+
+      // 실제 전송 (Formspree).
+      const original = submitBtn ? submitBtn.textContent : "";
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "전송 중…"; }
+      if (note) { note.textContent = ""; note.className = "form__note"; }
+
+      try {
+        const res = await fetch(action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+        if (res.ok) {
+          if (note) {
+            note.textContent = "문의가 정상적으로 접수되었습니다. 빠르게 연락드리겠습니다.";
+            note.className = "form__note is-success";
+          }
+          form.reset();
+        } else {
+          throw new Error("submit failed");
+        }
+      } catch (err) {
+        if (note) {
+          note.textContent = "전송에 실패했습니다. 메일 앱으로 다시 시도합니다.";
+          note.className = "form__note is-error";
+        }
+        mailtoFallback(name, email, company, message);
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = original; }
+      }
     });
   }
 })();

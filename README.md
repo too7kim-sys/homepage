@@ -51,14 +51,37 @@ npx http-server -p 8000
 3. 브랜치를 선택하고 `/ (root)` 폴더 지정 후 저장
 4. 잠시 후 제공되는 URL로 접속
 
+## ✉️ 문의 폼 실제 전송 설정 (Formspree)
+
+문의 폼은 기본적으로 **메일 앱 열기(mailto)** 로 동작합니다.
+아래 설정을 마치면 방문자가 작성한 문의가 **지정 메일로 자동 전송**됩니다(백엔드 불필요).
+
+1. [formspree.io](https://formspree.io) 가입 → **New Form** 생성 → 수신 메일 등록
+2. 발급된 엔드포인트(`https://formspree.io/f/abcd1234`) 복사
+3. `index.html` 의 문의 폼 `action` 값을 교체:
+   ```html
+   <form ... action="https://formspree.io/f/abcd1234" method="POST">
+   ```
+   `your_form_id` 가 실제 ID로 바뀌면 JS가 자동으로 비동기 전송 모드로 동작합니다.
+4. (선택) 첫 전송 시 Formspree 확인 메일의 링크를 클릭해 폼을 활성화
+
+> 미설정(`your_form_id` 유지) 시에는 안전하게 mailto 폴백으로 동작합니다.
+
+## 🌐 배포 (GitHub Pages)
+
+1. 저장소 **Settings → Pages** 이동
+2. **Build and deployment → Source** 를 `Deploy from a branch` 로 설정
+3. 브랜치를 선택하고 `/ (root)` 폴더 지정 후 저장
+4. 잠시 후 제공되는 URL로 접속 (`.nojekyll` 포함되어 정적 파일 그대로 서빙)
+5. 커스텀 도메인(`www.cusoft.co.kr`) 연결 시 Settings → Pages → Custom domain 에 입력
+
 ## 🛠 콘텐츠 수정 가이드
 
-- **회사 정보/연락처**: `index.html` 의 Contact·Footer 섹션 텍스트 수정
+- **회사 정보/연락처**: `index.html` 의 Contact·Footer 섹션 및 `<head>` JSON-LD 수정
 - **서비스/포트폴리오 항목**: 해당 섹션의 `<article>` 카드 복제·편집
-- **브랜드 컬러**: `css/style.css` 상단 `:root` 의 `--c-primary` 등 변수 변경
-- **통계 수치**: `index.html` Hero `data-count` / `data-suffix` 속성 변경
-- **폼 수신 메일**: `js/main.js` 의 `mailto:contact@cusoft.co.kr` 변경
-  (실제 전송이 필요하면 Formspree 등 폼 백엔드 연동 권장)
+- **브랜드 컬러**: `css/style.css` 상단 `:root` 의 `--c-blue` / `--c-green` 등 변수 변경
+- **공유 이미지**: `assets/og-image.png` (1200×630) 교체
+- **지도**: Contact 섹션 `iframe` 의 주소 쿼리 및 카카오맵 링크 수정
 
 ---
 
