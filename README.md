@@ -79,6 +79,34 @@ npx http-server -p 8000
 4. 잠시 후 제공되는 URL로 접속 (`.nojekyll` 포함되어 정적 파일 그대로 서빙)
 5. 커스텀 도메인(`www.cusoft.co.kr`) 연결 시 Settings → Pages → Custom domain 에 입력
 
+## 🔐 보안 (웹 취약점 대응)
+
+이 사이트는 정적 페이지로 서버측 공격면이 없으며, 클라이언트측도 다음과 같이 방어합니다.
+
+- **XSS**: 사용자 입력을 DOM에 삽입하지 않음. 오류 메시지는 `textContent`만 사용, `innerHTML`/`eval`/`document.write`/인라인 핸들러 전무. mailto 생성 시 `encodeURIComponent`로 **헤더 인젝션 차단**.
+- **CSP (Content-Security-Policy)**: `<head>` 메타로 적용. 외부 스크립트 차단(`script-src 'self'` + 인라인 테마 스크립트는 **SHA-256 해시**로만 허용), 허용 출처를 폰트·지도·Formspree로 한정. `object-src 'none'`, `base-uri 'self'`, `form-action` 화이트리스트.
+  - ⚠️ 인라인 테마 스크립트를 수정하면 **해시를 재계산**해야 합니다:
+    ```bash
+    # <script>...</script> 본문으로 해시 생성 후 CSP의 'sha256-...' 교체
+    ```
+- **역탭내빙(reverse tabnabbing)**: 외부 링크 모두 `rel="noopener noreferrer"`.
+- **참조자 노출**: `referrer = strict-origin-when-cross-origin`.
+
+### ⚠️ HTTP 헤더 레벨 한계 (GitHub Pages)
+
+`<meta>` CSP로는 **`frame-ancestors`(클릭재킹)·HSTS·X-Content-Type-Options** 를 설정할 수 없고, GitHub Pages는 커스텀 응답 헤더를 지원하지 않습니다. 강화하려면 커스텀 도메인 앞에 **Cloudflare**(또는 Netlify/Cloudflare Pages)를 두고 다음 헤더를 추가하세요:
+
+```
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+Content-Security-Policy: ... (frame-ancestors 'self' 포함)
+```
+
+> 브로슈어형 사이트라 인증·민감 동작이 없어 클릭재킹 실질 위험은 낮지만, 위 프록시 헤더로 완전 차단을 권장합니다.
+
 ## 🛠 콘텐츠 수정 가이드
 
 - **회사 정보/연락처**: `index.html` 의 Contact·Footer 섹션 및 `<head>` JSON-LD 수정

@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 보안: 콘텐츠 보안 정책(XSS 방어 심화) · 인라인 스크립트는 해시로만 허용 -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'sha256-eBAuw1S9lDS1qogwV3MHYwoAap5cMtltnVNonZH5wJc='; frame-src https://www.google.com https://maps.google.com; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io mailto:; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <!-- 다크모드 초기화 (FOUC 방지: 스타일 로드 전에 테마 확정) -->
   <script>
     (function () {
@@ -519,8 +524,8 @@
               width="100%" height="240" style="border:0" loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
             <div class="contact__maplinks">
-              <a class="contact__directions" href="https://map.kakao.com/?q=%EC%9C%A8%EA%B3%A1%ED%85%8C%ED%81%AC%EB%85%B8%EB%B0%B8%EB%A6%AC%20%EA%B9%80%EC%B2%9C" target="_blank" rel="noopener">카카오맵 길찾기 →</a>
-              <a class="contact__directions" href="https://map.naver.com/p/search/%EC%9C%A8%EA%B3%A1%ED%85%8C%ED%81%AC%EB%85%B8%EB%B0%B8%EB%A6%AC%20%EA%B9%80%EC%B2%9C" target="_blank" rel="noopener">네이버지도 길찾기 →</a>
+              <a class="contact__directions" href="https://map.kakao.com/?q=%EC%9C%A8%EA%B3%A1%ED%85%8C%ED%81%AC%EB%85%B8%EB%B0%B8%EB%A6%AC%20%EA%B9%80%EC%B2%9C" target="_blank" rel="noopener noreferrer">카카오맵 길찾기 →</a>
+              <a class="contact__directions" href="https://map.naver.com/p/search/%EC%9C%A8%EA%B3%A1%ED%85%8C%ED%81%AC%EB%85%B8%EB%B0%B8%EB%A6%AC%20%EA%B9%80%EC%B2%9C" target="_blank" rel="noopener noreferrer">네이버지도 길찾기 →</a>
             </div>
           </div>
         </div>
