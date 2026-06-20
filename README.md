@@ -77,7 +77,23 @@ npx http-server -p 8000
 2. **Build and deployment → Source** 를 `Deploy from a branch` 로 설정
 3. 브랜치를 선택하고 `/ (root)` 폴더 지정 후 저장
 4. 잠시 후 제공되는 URL로 접속 (`.nojekyll` 포함되어 정적 파일 그대로 서빙)
-5. 커스텀 도메인(`www.cusoft.co.kr`) 연결 시 Settings → Pages → Custom domain 에 입력
+
+### 커스텀 도메인 (`www.cusoft.co.kr`)
+
+루트에 **`CNAME`** 파일이 이미 포함되어 있습니다. **DNS를 먼저 설정한 뒤** Pages를 켜세요.
+
+> ⚠️ **순서 주의**: CNAME 파일이 있으면 `*.github.io` 접속이 커스텀 도메인으로 리다이렉트됩니다.
+> DNS가 먼저 잡혀 있지 않으면 사이트 접근이 끊기므로 **DNS → Pages 활성화** 순서를 지키세요.
+
+도메인 등록기관(가비아 등)에서 DNS 레코드 추가:
+
+| 유형 | 이름 | 값 |
+|---|---|---|
+| `CNAME` | `www` | `<GitHub사용자명>.github.io` |
+| `A` | `@` (apex) | `185.199.108.153` / `.109.153` / `.110.153` / `.111.153` |
+
+- Settings → Pages → **Custom domain** 에 `www.cusoft.co.kr` 입력 → **Enforce HTTPS** 체크
+- 보안 헤더(HSTS·클릭재킹 등) 보강은 [`docs/security-headers.md`](docs/security-headers.md) 참고
 
 ## 🔐 보안 (웹 취약점 대응)
 
