@@ -58,14 +58,18 @@ npx http-server -p 8000
 
 1. [formspree.io](https://formspree.io) 가입 → **New Form** 생성 → 수신 메일 등록
 2. 발급된 엔드포인트(`https://formspree.io/f/abcd1234`) 복사
-3. `index.html` 의 문의 폼 `action` 값을 교체:
+3. `index.html` 의 문의 폼 `action`/`enctype` 을 교체:
    ```html
+   <!-- 기본값(미설정): mailto 폴백 -->
+   <form ... action="mailto:contact@cusoft.co.kr" method="post" enctype="text/plain">
+   <!-- 교체 후: Formspree 비동기 전송 -->
    <form ... action="https://formspree.io/f/abcd1234" method="POST">
    ```
-   `your_form_id` 가 실제 ID로 바뀌면 JS가 자동으로 비동기 전송 모드로 동작합니다.
+   `formspree.io/f/...` 로 바뀌면 JS가 자동으로 비동기 전송 모드로 동작합니다.
 4. (선택) 첫 전송 시 Formspree 확인 메일의 링크를 클릭해 폼을 활성화
 
-> 미설정(`your_form_id` 유지) 시에는 안전하게 mailto 폴백으로 동작합니다.
+> 미설정 기본값(`action="mailto:..."`)에서는 JS가 있으면 메일 앱으로,
+> JS가 없어도 브라우저 기본 mailto 전송으로 **안전하게 폴백**합니다.
 
 ## 🌐 배포 (GitHub Pages)
 

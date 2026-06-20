@@ -39,7 +39,8 @@
 
 /* ---------- Reset / Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); -webkit-text-size-adjust: 100%; color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
 body {
   margin: 0;
   font-family: var(--font);
@@ -788,9 +789,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: block; width: 100%; border-radius: var(--radius);
   border: 1px solid var(--c-line); box-shadow: var(--shadow-sm);
 }
+.contact__maplinks { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 14px; }
 .contact__directions {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
-  font-weight: 700; color: var(--c-blue, #1e53a3);
+  display: inline-flex; align-items: center; gap: 6px;
+  font-weight: 700; color: var(--c-primary);
 }
 .contact__directions:hover { text-decoration: underline; }
 

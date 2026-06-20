@@ -41,11 +41,20 @@
 
   // OS 테마 변경 시(사용자가 직접 고르지 않은 경우에만) 따라가기
   if (window.matchMedia) {
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-      let saved = null;
-      try { saved = localStorage.getItem(THEME_KEY); } catch (_) {}
-      if (!saved) applyTheme(e.matches ? "dark" : "light");
-    });
+    try {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      const onSchemeChange = (e) => {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch (_) {}
+        if (!saved) applyTheme(e.matches ? "dark" : "light");
+      };
+      // 구형 Safari(<14)는 addEventListener 미지원 → addListener 폴백
+      if (typeof mq.addEventListener === "function") {
+        mq.addEventListener("change", onSchemeChange);
+      } else if (typeof mq.addListener === "function") {
+        mq.addListener(onSchemeChange);
+      }
+    } catch (_) { /* 구형 브라우저: 무시하고 나머지 init 계속 */ }
   }
 
   /* ---------- Mobile navigation ---------- */
@@ -200,7 +209,7 @@
     const CONTACT_EMAIL = "contact@cusoft.co.kr";
     // Formspree 엔드포인트가 설정되면 실제 전송, 아니면 mailto 폴백.
     const action = form.getAttribute("action") || "";
-    const useFormspree = /formspree\.io\/f\/(?!your_form_id)/.test(action);
+    const useFormspree = /formspree\.io\/f\/\w/.test(action);
 
     function mailtoFallback(name, email, company, message) {
       const subject = encodeURIComponent("[홈페이지 문의] " + name);
