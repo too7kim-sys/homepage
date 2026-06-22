@@ -44,6 +44,27 @@ python3 -m http.server 8000
 npx http-server -p 8000
 ```
 
+### Eclipse + Tomcat 으로 실행
+
+이 저장소에는 **Dynamic Web Project 메타데이터**(`.project`, `.settings/`, `WEB-INF/web.xml`)가
+포함되어 있어 이클립스에서 바로 Tomcat에 올릴 수 있습니다. 정적 파일은 **프로젝트 루트**가
+웹 콘텐츠 루트로 매핑됩니다(Deploy Assembly `/` → `/`).
+
+1. **File → Import → Git / 또는 Existing Projects into Workspace** 로 이 폴더 가져오기
+2. **Window → Show View → Servers** → 우클릭 **New → Server → Apache → Tomcat v9.0** →
+   Tomcat 설치 경로 지정 (사전 준비: JDK + Tomcat 다운로드)
+3. 프로젝트 우클릭 → **Properties → Targeted Runtimes** 에서 추가한 Tomcat 체크
+4. 프로젝트 우클릭 → **Run As → Run on Server** → Tomcat 선택 → Finish
+5. 브라우저: `http://localhost:8080/cusoft-homepage/`
+   - 컨텍스트 경로 변경: **Properties → Web Project Settings → Context root**
+
+> **Tomcat 10(Jakarta EE) 사용 시**: `WEB-INF/web.xml` 의 네임스페이스를
+> `https://jakarta.ee/xml/ns/jakartaee` · `version="5.0"` 으로,
+> `.settings/org.eclipse.wst.common.project.facet.core.xml` 의 `jst.web` 를 `5.0` 으로 변경하세요.
+> (정적 사이트라 서블릿 클래스는 없어 동작엔 문제 없습니다.)
+
+> 참고: 이 사이트는 서버측 코드가 없어 Tomcat이 필수는 아니며, 위 정적 서버(Python/Node)로도 동일하게 동작합니다.
+
 ## 🌐 배포 (GitHub Pages)
 
 1. 저장소 **Settings → Pages** 이동
