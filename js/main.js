@@ -298,4 +298,55 @@
       }
     });
   }
+
+  /* ---------- Solution detail modals ---------- */
+  const modalRoot = $("#modal-root");
+  if (modalRoot) {
+    let lastFocused = null;
+    const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function openModal(id) {
+      const dialog = document.getElementById(id);
+      if (!dialog) return;
+      lastFocused = document.activeElement;
+      modalRoot.hidden = false;
+      // 한 번에 하나의 다이얼로그만 표시
+      $$(".modal", modalRoot).forEach((m) => { m.hidden = m.id !== id; });
+      document.body.style.overflow = "hidden";
+      const first = dialog.querySelector(FOCUSABLE);
+      if (first) first.focus();
+    }
+
+    function closeModal() {
+      if (modalRoot.hidden) return;
+      modalRoot.hidden = true;
+      document.body.style.overflow = "";
+      if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+    }
+
+    // 카드의 '자세히 보기' → 모달 열기
+    $$("[data-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => openModal(btn.getAttribute("data-modal")));
+    });
+
+    // 닫기: X·백드롭·CTA(data-close)
+    modalRoot.addEventListener("click", (e) => {
+      if (e.target.closest("[data-close]")) closeModal();
+    });
+
+    // ESC 닫기 + 포커스 트랩
+    document.addEventListener("keydown", (e) => {
+      if (modalRoot.hidden) return;
+      if (e.key === "Escape") { closeModal(); return; }
+      if (e.key === "Tab") {
+        const dialog = $$(".modal", modalRoot).find((m) => !m.hidden);
+        if (!dialog) return;
+        const f = Array.from(dialog.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
 })();
