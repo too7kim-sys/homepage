@@ -211,12 +211,19 @@
     const action = form.getAttribute("action") || "";
     const useFormspree = /formspree\.io\/f\/\w/.test(action);
 
+    const privacy = $("#privacy");
+    if (privacy) privacy.addEventListener("change", () => setError(privacy, ""));
+
     function mailtoFallback(name, email, company, message) {
+      const service = ($("#service") && $("#service").value.trim()) || "-";
+      const budget = ($("#budget") && $("#budget").value.trim()) || "-";
       const subject = encodeURIComponent("[홈페이지 문의] " + name);
       const body = encodeURIComponent(
         "이름: " + name + "\n" +
           "이메일: " + email + "\n" +
-          "회사/소속: " + company + "\n\n" +
+          "회사/소속: " + company + "\n" +
+          "문의 서비스: " + service + "\n" +
+          "예산 규모: " + budget + "\n\n" +
           message
       );
       window.location.href =
@@ -241,6 +248,10 @@
       if (!fields.message.value.trim()) {
         setError(fields.message, "문의 내용을 입력해 주세요.");
         firstInvalid = firstInvalid || fields.message;
+      }
+      if (privacy && !privacy.checked) {
+        setError(privacy, "개인정보 수집·이용에 동의해 주세요.");
+        firstInvalid = firstInvalid || privacy;
       }
 
       if (firstInvalid) {
