@@ -1071,3 +1071,72 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .check input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--c-primary); cursor: pointer; }
 .check small { color: var(--c-muted); font-size: .82rem; }
 .field--check.is-invalid .check { color: #dc2626; }
+
+/* ---------- 연구소: 핵심 연구분야 3열 · 실적 메타 ---------- */
+.services__grid--3 { grid-template-columns: 1fr; }
+@media (min-width: 720px) { .services__grid--3 { grid-template-columns: repeat(3, 1fr); } }
+.service-card__meta {
+  margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--c-line);
+  font-size: .85rem; color: var(--c-muted); line-height: 1.6;
+}
+.service-card__meta span {
+  display: inline-block; font-weight: 800; font-size: .72rem; color: var(--c-green);
+  margin-right: 6px;
+}
+
+/* ---------- 연구 개발 방법론 (4단계) ---------- */
+.rd-process {
+  display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 8px;
+  counter-reset: rd;
+}
+@media (min-width: 640px) { .rd-process { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .rd-process { grid-template-columns: repeat(4, 1fr); } }
+.rd-process li {
+  position: relative; background: var(--c-bg); border: 1px solid var(--c-line);
+  border-radius: var(--radius); padding: 26px 22px 22px; box-shadow: var(--shadow-sm);
+}
+.rd-process__num {
+  display: inline-block; font-weight: 900; font-size: 1.05rem; color: #fff;
+  width: 40px; height: 40px; line-height: 40px; text-align: center; border-radius: 12px;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-green)); margin-bottom: 14px;
+}
+.rd-process h4 { margin: 0 0 6px; font-size: 1.02rem; color: var(--c-ink); font-weight: 800; }
+.rd-process p { color: var(--c-muted); font-size: .9rem; line-height: 1.6; }
+
+/* ---------- 주요 국책 연구 과제 ---------- */
+.rd-projects { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 720px) { .rd-projects { grid-template-columns: repeat(2, 1fr); } }
+.rd-project {
+  background: var(--c-bg); border: 1px solid var(--c-line); border-left: 4px solid var(--c-primary);
+  border-radius: var(--radius); padding: 24px 26px; box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.rd-project:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.rd-project__org {
+  display: inline-block; font-size: .78rem; font-weight: 800; color: var(--c-primary);
+  background: rgba(30, 84, 164, .08); padding: 4px 11px; border-radius: 999px; margin-bottom: 12px;
+}
+.rd-project h4 { margin: 0 0 8px; font-size: 1.05rem; color: var(--c-ink); font-weight: 800; line-height: 1.4; }
+.rd-project p { color: var(--c-muted); font-size: .92rem; line-height: 1.6; }
+[data-theme="dark"] .rd-project__org { background: rgba(91, 147, 224, .16); }
+
+/* ---------- 채용 (Recruit) ---------- */
+.value-card h3 small { display: block; font-weight: 600; font-size: .78rem; color: var(--c-muted); letter-spacing: .04em; margin-top: 3px; }
+.benefits { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 700px) { .benefits { grid-template-columns: repeat(2, 1fr); } }
+.benefits li {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius);
+  padding: 22px 24px; box-shadow: var(--shadow-sm);
+}
+.benefits__ic {
+  flex: none; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 12px;
+  color: var(--c-primary); background: linear-gradient(135deg, #e6eefa, #e3f4e6);
+}
+.benefits__ic .ic { width: 22px; height: 22px; }
+.benefits strong { display: block; color: var(--c-ink); font-weight: 800; margin-bottom: 4px; }
+.benefits p { color: var(--c-muted); font-size: .92rem; line-height: 1.6; }
+[data-theme="dark"] .benefits__ic { background: linear-gradient(135deg, #15294a, #123524); }
+
+.recruit__cta { text-align: center; margin-top: 44px; }
+.recruit__cta p { color: var(--c-muted); margin-bottom: 16px; }
